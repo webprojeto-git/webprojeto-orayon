@@ -1,88 +1,65 @@
-import { UserPlus, Rocket, DollarSign } from 'lucide-react';
+import { UserPlus, PlayCircle, Share2 } from 'lucide-react';
 
 const steps = [
   {
+    number: "1",
     icon: UserPlus,
-    step: '01',
-    title: 'Cadastro no Ecossistema',
-    description: 'Faça seu cadastro gratuito e tenha acesso imediato ao ecossistema Orayon e todas as suas ferramentas.',
+    title: "Cadastre-se pelo botão",
+    description: "Crie sua conta gratuita em poucos segundos e entre para o ecossistema Orayon."
   },
   {
-    icon: Rocket,
-    step: '02',
-    title: 'Ativação e Uso das Ferramentas',
-    description: 'Ative seu acesso e comece a utilizar as ferramentas de IA para potencializar suas estratégias digitais.',
+    number: "2",
+    icon: PlayCircle,
+    title: "O vídeo explica tudo sobre os pilares do projeto",
+    description: "Assista ao vídeo completo e entenda como funciona cada oportunidade disponível."
   },
   {
-    icon: DollarSign,
-    step: '03',
-    title: 'Ganhos Recorrentes',
-    description: 'Explore múltiplas fontes de renda e construa um fluxo de ganhos recorrentes e escaláveis.',
-  },
+    number: "3",
+    icon: Share2,
+    title: "Divulgue seu link",
+    description: "Depois de concluído o seu cadastro, divulgue o seu link para pessoas e empresas que vão precisar de alguma tecnologia em IA."
+  }
 ];
 
 const HowItWorksSection = () => {
   return (
-    <section id="como-funciona" className="section-padding relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/30 to-transparent" />
-
-      <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-4 block">
-            Passo a Passo
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Como{' '}
-            <span className="gradient-text">Funciona</span>?
+    <section id="como-funciona" className="section-padding bg-card/30">
+      <div className="container-custom">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Como <span className="gradient-text">funciona</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Três passos simples para começar sua jornada de ganhos com IA
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Três passos simples para começar a gerar resultados com IA
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connection Line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent -translate-y-1/2" />
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {steps.map((item, index) => (
-              <div
-                key={index}
-                className="relative group"
+        <div className="grid md:grid-cols-3 gap-8">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <div 
+                key={index} 
+                className="glass-card rounded-2xl p-8 text-center relative group hover:border-primary/50 transition-all duration-300"
               >
-                {/* Step Card */}
-                <div className="glass-card rounded-3xl p-8 text-center h-full hover:border-primary/50 transition-all duration-500">
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-accent text-accent-foreground text-sm font-bold flex items-center justify-center">
-                    {index + 1}
-                  </div>
-
-                  {/* Icon */}
-                  <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                    <item.icon className="w-10 h-10 text-primary" />
-                  </div>
-
-                  {/* Step Label */}
-                  <span className="text-xs font-bold text-accent uppercase tracking-widest mb-3 block">
-                    Passo {item.step}
-                  </span>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold mb-4">
-                    {item.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
+                {/* Step Number */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center text-sm font-bold text-white">
+                  {step.number}
                 </div>
+
+                {/* Icon */}
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-8 h-8 text-primary" />
+                </div>
+
+                {/* Content */}
+                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {step.description}
+                </p>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>

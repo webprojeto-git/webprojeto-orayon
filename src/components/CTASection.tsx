@@ -1,6 +1,6 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
 
-const CTA_LINK = "https://orayon.fernandomentor.com.br/";
+const CTA_LINK = "https://app.orayon.ai/webprojeto";
 
 const CTASection = () => {
   return (
@@ -16,20 +16,19 @@ const CTASection = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-8">
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm font-medium text-accent">
-              Oportunidade Exclusiva
+              Vagas Limitadas
             </span>
           </div>
 
           {/* Headline */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance">
-            Pronto para transformar sua vida financeira com{' '}
-            <span className="gradient-text">Inteligência Artificial</span>?
+            Últimas vagas do cadastro
           </h2>
 
           {/* Subheadline */}
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            Entre agora para o ecossistema Orayon e comece a construir suas múltiplas fontes 
-            de renda recorrente. Não deixe essa oportunidade passar.
+            Você pode decidir depois. Garanta sua vaga agora e explore o ecossistema Orayon 
+            sem compromisso.
           </p>
 
           {/* CTA Button */}
@@ -38,14 +37,15 @@ const CTASection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center gap-3 text-lg group"
+            aria-label="Quero me cadastrar agora no Orayon Webprojeto"
           >
-            <span>Quero Fazer Parte do Orayon</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <CheckCircle2 className="w-5 h-5" />
+            <span>Quero me cadastrar agora</span>
           </a>
 
           {/* Trust Elements */}
           <p className="text-sm text-muted-foreground mt-8">
-            Cadastro gratuito • Sem compromisso • Acesso imediato
+            Cadastro gratuito • Acesso imediato • Sem cartão de crédito
           </p>
         </div>
       </div>

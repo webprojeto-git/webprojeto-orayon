@@ -1,6 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-
-const CTA_LINK = "https://app.orayon.ai/webprojeto";
+import { handleRandomCtaClick } from '@/hooks/use-random-cta';
 
 const Header = () => {
   return (
@@ -14,9 +13,8 @@ const Header = () => {
 
           {/* CTA Button */}
           <a
-            href={CTA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={handleRandomCtaClick}
             className="btn-primary text-sm py-2 px-4 flex items-center gap-2"
             aria-label="Cadastrar no Orayon Webprojeto"
           >

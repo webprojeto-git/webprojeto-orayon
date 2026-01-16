@@ -1,6 +1,5 @@
 import { CheckCircle2, Sparkles } from 'lucide-react';
-
-const CTA_LINK = "https://app.orayon.ai/webprojeto";
+import { handleRandomCtaClick } from '@/hooks/use-random-cta';
 
 const CTASection = () => {
   return (
@@ -33,9 +32,8 @@ const CTASection = () => {
 
           {/* CTA Button */}
           <a
-            href={CTA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={handleRandomCtaClick}
             className="btn-primary inline-flex items-center gap-3 text-lg group"
             aria-label="Quero me cadastrar agora no Orayon Webprojeto"
           >

@@ -50,7 +50,9 @@ const HeroSection = () => {
             <a
               href="#"
               onClick={handleRandomCtaClick}
-              className="btn-primary inline-flex items-center gap-3 text-lg group w-full sm:w-auto justify-center"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary js-random-cta inline-flex items-center gap-3 text-lg group w-full sm:w-auto justify-center"
               aria-label="Quero me cadastrar agora no Orayon Webprojeto"
             >
               <CheckCircle2 className="w-5 h-5" />

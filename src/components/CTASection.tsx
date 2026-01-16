@@ -34,17 +34,15 @@ const CTASection = () => {
           <a
             href="#"
             onClick={handleRandomCtaClick}
-            className="btn-primary inline-flex items-center gap-3 text-lg group"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary js-random-cta inline-flex items-center gap-3 text-lg group"
             aria-label="Quero me cadastrar agora no Orayon Webprojeto"
           >
             <CheckCircle2 className="w-5 h-5" />
             <span>Quero me cadastrar agora</span>
           </a>
 
-          {/* Trust Elements */}
-          <p className="text-sm text-muted-foreground mt-8">
-            Cadastro gratuito • Acesso imediato • Sem cartão de crédito
-          </p>
         </div>
       </div>
     </section>

@@ -15,7 +15,9 @@ const Header = () => {
           <a
             href="#"
             onClick={handleRandomCtaClick}
-            className="btn-primary text-sm py-2 px-4 flex items-center gap-2"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary js-random-cta text-sm py-2 px-4 flex items-center gap-2"
             aria-label="Cadastrar no Orayon Webprojeto"
           >
             <span>Cadastrar</span>

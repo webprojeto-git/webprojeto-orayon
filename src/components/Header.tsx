@@ -8,7 +8,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="text-2xl font-bold gradient-text">
-            Orayon
+            ai.webprojeto
           </a>
 
           {/* CTA Button */}

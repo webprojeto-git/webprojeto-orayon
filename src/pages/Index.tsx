@@ -13,17 +13,17 @@ const Index = () => {
   const schemaOrganization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Orayon",
-    "url": "https://orayon.ai",
-    "logo": "https://orayon.ai/logo.png",
+    "name": "ai.webprojeto",
+    "url": "https://ai.webprojeto.com.br",
+    "logo": "https://ai.webprojeto.com.br/logo.png",
     "description": "Ecossistema de IA para ganhos recorrentes e automação de negócios digitais"
   };
 
   const schemaWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Orayon Webprojeto",
-    "url": "https://orayon.ai/webprojeto"
+    "name": "ai.webprojeto",
+    "url": "https://ai.webprojeto.com.br"
   };
 
   const schemaVideo = {
@@ -71,30 +71,30 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Orayon Webprojeto | Ganhos Recorrentes com IA Aplicada</title>
+        <title>ai.webprojeto | Ganhos Recorrentes com IA Aplicada</title>
         <meta 
           name="description" 
-          content="Acesso gratuito ao ecossistema Orayon. Aprenda, conecte-se e desbloqueie oportunidades de ganhos recorrentes com IA aplicada. Para empreendedores, creators e afiliados." 
+          content="Acesso gratuito ao ecossistema ai.webprojeto. Aprenda, conecte-se e desbloqueie oportunidades de ganhos recorrentes com IA aplicada. Para empreendedores, creators e afiliados." 
         />
-        <meta name="keywords" content="Orayon, Webprojeto, IA, inteligência artificial, ganhos recorrentes, automação, WhatsApp, Instagram, afiliados, empreendedores digitais" />
+        <meta name="keywords" content="ai.webprojeto, IA, inteligência artificial, ganhos recorrentes, automação, WhatsApp, Instagram, afiliados, empreendedores digitais" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Orayon Webprojeto | Ganhos Recorrentes com IA" />
-        <meta property="og:description" content="Acesso gratuito ao ecossistema Orayon. Desbloqueie oportunidades de ganhos recorrentes com IA aplicada." />
+        <meta property="og:title" content="ai.webprojeto | Ganhos Recorrentes com IA" />
+        <meta property="og:description" content="Acesso gratuito ao ecossistema ai.webprojeto. Desbloqueie oportunidades de ganhos recorrentes com IA aplicada." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://orayon.ai/webprojeto" />
+        <meta property="og:url" content="https://ai.webprojeto.com.br" />
         <meta property="og:image" content="https://img.youtube.com/vi/kjd7KKUMNH4/maxresdefault.jpg" />
-        <meta property="og:site_name" content="Orayon" />
+        <meta property="og:site_name" content="ai.webprojeto" />
         <meta property="og:locale" content="pt_BR" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Orayon Webprojeto | Ganhos Recorrentes com IA" />
-        <meta name="twitter:description" content="Acesso gratuito ao ecossistema Orayon. Desbloqueie oportunidades de ganhos recorrentes com IA aplicada." />
+        <meta name="twitter:title" content="ai.webprojeto | Ganhos Recorrentes com IA" />
+        <meta name="twitter:description" content="Acesso gratuito ao ecossistema ai.webprojeto. Desbloqueie oportunidades de ganhos recorrentes com IA aplicada." />
         <meta name="twitter:image" content="https://img.youtube.com/vi/kjd7KKUMNH4/maxresdefault.jpg" />
 
         {/* Canonical */}
-        <link rel="canonical" href="https://orayon.ai/webprojeto" />
+        <link rel="canonical" href="https://ai.webprojeto.com.br" />
 
         {/* JSON-LD Schemas */}
         <script type="application/ld+json">

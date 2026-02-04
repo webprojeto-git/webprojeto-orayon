@@ -7,12 +7,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo */}
           <a href="#" className="text-xl font-bold gradient-text">
-            Orayon
+            ai.webprojeto
           </a>
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground text-center">
-            © {currentYear} Orayon – Webprojeto. Todos os direitos reservados.
+            © {currentYear} ai.webprojeto. Todos os direitos reservados.
           </p>
 
           {/* Links */}

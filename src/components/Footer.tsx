@@ -1,4 +1,7 @@
+import { useLanguage } from '@/contexts/LanguageContext';
+
 const Footer = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -12,7 +15,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground text-center">
-            © {currentYear} ai.webprojeto. Todos os direitos reservados.
+            © {currentYear} ai.webprojeto. {t.footer.copyright}
           </p>
 
           {/* Links */}

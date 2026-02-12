@@ -1,7 +1,11 @@
 import { ArrowRight } from 'lucide-react';
 import { handleRandomCtaClick } from '@/hooks/use-random-cta';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const Header = () => {
+  const { t } = useLanguage();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container-custom">
@@ -11,18 +15,21 @@ const Header = () => {
             ai.webprojeto
           </a>
 
-          {/* CTA Button */}
-          <a
-            href="#"
-            onClick={handleRandomCtaClick}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary js-random-cta text-sm py-2 px-4 flex items-center gap-2"
-            aria-label="Cadastrar no Orayon Webprojeto"
-          >
-            <span>Cadastrar</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+            {/* CTA Button */}
+            <a
+              href="#"
+              onClick={handleRandomCtaClick}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary js-random-cta text-sm py-2 px-4 flex items-center gap-2"
+              aria-label={t.aria.ctaButton}
+            >
+              <span>{t.nav.cta}</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </header>

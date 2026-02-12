@@ -1,7 +1,10 @@
 import { CheckCircle2, Sparkles } from 'lucide-react';
 import { handleRandomCtaClick } from '@/hooks/use-random-cta';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const CTASection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="section-padding relative overflow-hidden">
       {/* Background Effects */}
@@ -15,19 +18,18 @@ const CTASection = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-8">
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm font-medium text-accent">
-              Vagas Limitadas
+              {t.cta.badge}
             </span>
           </div>
 
           {/* Headline */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance">
-            Últimas vagas do cadastro
+            {t.cta.title}
           </h2>
 
           {/* Subheadline */}
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            Você pode decidir depois. Garanta sua vaga agora e explore o ecossistema Orayon 
-            sem compromisso.
+            {t.cta.subtitle}
           </p>
 
           {/* CTA Button */}
@@ -37,12 +39,11 @@ const CTASection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary js-random-cta inline-flex items-center gap-3 text-lg group"
-            aria-label="Quero me cadastrar agora no Orayon Webprojeto"
+            aria-label={t.aria.heroCtaButton}
           >
             <CheckCircle2 className="w-5 h-5" />
-            <span>Quero me cadastrar agora</span>
+            <span>{t.cta.button}</span>
           </a>
-
         </div>
       </div>
     </section>

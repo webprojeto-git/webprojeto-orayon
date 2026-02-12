@@ -1,49 +1,26 @@
 import { Workflow, MessageSquare, DollarSign, Users2, Sparkles } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const benefits = [
-  {
-    icon: Workflow,
-    title: "Funis prontos e replicáveis",
-    description: "Estruturas validadas para você implementar imediatamente"
-  },
-  {
-    icon: MessageSquare,
-    title: "Conteúdos + automações com CTA",
-    description: "Conteúdos prontos com call-to-action nos comentários"
-  },
-  {
-    icon: DollarSign,
-    title: "Modelos de monetização recorrente",
-    description: "Gere renda passiva com estratégias comprovadas"
-  },
-  {
-    icon: Users2,
-    title: "Networking e oportunidades reais",
-    description: "Conecte-se com pessoas e projetos no ecossistema"
-  },
-  {
-    icon: Sparkles,
-    title: "Ecossistema completo de IA",
-    description: "Entre no mundo das IAs independente do seu conhecimento em tecnologia"
-  }
-];
+const benefitIcons = [Workflow, MessageSquare, DollarSign, Users2, Sparkles];
 
 const BenefitsSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="beneficios" className="section-padding bg-card/30">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Benefícios</span>
+            <span className="gradient-text">{t.benefits.title}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            IA que vira resultado, não só conteúdo.
+            {t.benefits.subtitle}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
+          {t.benefits.items.map((benefit, index) => {
+            const Icon = benefitIcons[index];
             return (
               <div 
                 key={index} 

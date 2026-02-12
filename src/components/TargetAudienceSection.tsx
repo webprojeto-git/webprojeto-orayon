@@ -1,49 +1,26 @@
 import { Users, ShoppingBag, Briefcase, Bot, Building2 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const audiences = [
-  {
-    icon: Users,
-    title: "Influenciadores e criadores",
-    description: "Monetize sua audiência com ferramentas de IA"
-  },
-  {
-    icon: ShoppingBag,
-    title: "Afiliados de produtos digitais",
-    description: "Automatize suas vendas e escale resultados"
-  },
-  {
-    icon: Briefcase,
-    title: "Empreendedores e prestadores de serviço",
-    description: "Atenda mais clientes com menos esforço"
-  },
-  {
-    icon: Bot,
-    title: "Quem quer usar IA para vender e escalar",
-    description: "Aprenda e aplique estratégias comprovadas"
-  },
-  {
-    icon: Building2,
-    title: "Empresários que querem escalar com IA",
-    description: "Atenda clientes e automatize processos"
-  }
-];
+const audienceIcons = [Users, ShoppingBag, Briefcase, Bot, Building2];
 
 const TargetAudienceSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="para-quem-e" className="section-padding">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Para quem <span className="gradient-text">é</span>
+            {t.targetAudience.title} <span className="gradient-text">{t.targetAudience.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            O ecossistema Orayon foi criado para quem quer resultados reais com IA
+            {t.targetAudience.subtitle}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {audiences.map((audience, index) => {
-            const Icon = audience.icon;
+          {t.targetAudience.audiences.map((audience, index) => {
+            const Icon = audienceIcons[index];
             return (
               <div 
                 key={index} 

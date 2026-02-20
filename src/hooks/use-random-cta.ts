@@ -1,16 +1,23 @@
-const CTA_LINKS = [
-  "https://app.orayon.ai/lp/rodrigo",
-  "https://app.orayon.ai/lp/webprojeto",
-  "https://app.orayon.ai/lp/parceirodigital"
-];
-
-export const getRandomCtaLink = () => {
-  const randomIndex = Math.floor(Math.random() * CTA_LINKS.length);
-  return CTA_LINKS[randomIndex];
-};
-
-export const handleRandomCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+export const handleRandomCtaClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
   e.preventDefault();
-  const randomLink = getRandomCtaLink();
-  window.open(randomLink, '_blank', 'noopener');
+
+  try {
+    const response = await fetch('https://workflow2.webprojeto.com.br/webhook/redirect-orayon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source: 'site_principal', timestamp: Date.now() }),
+    });
+
+    if (!response.ok) throw new Error('HTTP error');
+
+    const data = await response.json();
+
+    if (data.success === true && data.redirect) {
+      window.location.href = data.redirect;
+    } else {
+      throw new Error('Invalid response');
+    }
+  } catch {
+    alert('Erro ao redirecionar. Tente novamente.');
+  }
 };

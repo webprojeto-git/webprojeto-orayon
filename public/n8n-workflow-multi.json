@@ -1,0 +1,67 @@
+{
+  "name": "Site ai.orayon - Distribuição Parceiros",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "form-orayon",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [32, 96],
+      "id": "6e3b12a5-9fd7-4e48-bab2-866988ca0fe4",
+      "name": "Webhook",
+      "webhookId": "c7f04616-810c-40cc-a3cb-833a22118e24"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Detectar método HTTP ────────────────────────────────────────\n// Com multipleMethods, o n8n expõe o método em $json.method\n// ou podemos inferir pela presença de dados do formulário no body\nconst method = ($json.method ?? '').toUpperCase();\nconst body   = $json.body ?? {};\nconst isPost = method === 'POST' || !!body.dados;\n\n// ── Lista de parceiros ───────────────────────────────────────────\nconst partners = [\n  'parceirodigital',\n  'webprojeto',\n  'rodrigo'\n];\nconst chosen     = partners[Math.floor(Math.random() * partners.length)];\nconst lpUrl      = `https://app.orayon.ai/lp/${chosen}`;\n\n// ════════════════════════════════════════════════════════════════\n// CASO 1 — GET (botão CTA da landing page)\n// Apenas sorteia parceiro e retorna redirect\n// ════════════════════════════════════════════════════════════════\nif (!isPost) {\n  return [{\n    json: {\n      success:  true,\n      parceiro: chosen,\n      redirect: lpUrl\n    }\n  }];\n}\n\n// ════════════════════════════════════════════════════════════════\n// CASO 2 — POST (formulário de cadastro)\n// Encaminha dados para a API do Orayon e retorna redirect\n// ════════════════════════════════════════════════════════════════\nconst dados = body.dados ?? {};\n\n// Validação mínima\nconst { nomeCompleto, usuario, email, senha } = dados;\nif (!nomeCompleto || !usuario || !email || !senha) {\n  return [{\n    json: {\n      success: false,\n      error:   'Campos obrigatórios ausentes: nomeCompleto, usuario, email, senha'\n    }\n  }];\n}\n\n// Chamada à API de registro do Orayon\nconst apiUrl = 'https://app.orayon.ai/api/register'; // ← ajuste se necessário\n\nlet apiData = {};\ntry {\n  const res = await fetch(apiUrl, {\n    method:  'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({\n      name:         nomeCompleto,\n      social_name:  dados.nomeSocial   || null,\n      gender:       dados.genero       || null,\n      username:     usuario,\n      email,\n      password:     senha,\n      country:      dados.pais         || null,\n      state:        dados.estado       || null,\n      city:         dados.cidade       || null,\n      phone:        dados.celular      || null,\n      document:     dados.documento    || null,\n      birthdate:    dados.dataNascimento || null,\n      plan:         dados.plano        || 'Ainda não decidi',\n      partner:      chosen,\n      source:       body.origem        || 'form',\n      registered_at: body.timestamp   || new Date().toISOString()\n    })\n  });\n\n  apiData = await res.json();\n\n  if (!res.ok) {\n    return [{\n      json: {\n        success: false,\n        error:   apiData?.message ?? 'Erro na API do Orayon',\n        details: apiData\n      }\n    }];\n  }\n} catch (err) {\n  return [{\n    json: {\n      success: false,\n      error:   'Falha ao conectar com a API do Orayon',\n      details: String(err)\n    }\n  }];\n}\n\n// Redirect pós-cadastro (usa o retorno da API ou fallback)\nconst redirectUrl = apiData?.redirect ?? lpUrl;\n\nreturn [{\n  json: {\n    success:  true,\n    parceiro: chosen,\n    usuario,\n    email,\n    redirect: redirectUrl,\n    api:      apiData\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [288, 96],
+      "id": "edae4241-d1c4-4dbb-b080-2a098cc93322",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin",  "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
+              { "name": "Content-Type",                 "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [544, 96],
+      "id": "7faceeed-f007-4b85-896d-eb2818934706",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Code in JavaScript1", "type": "main", "index": 0 }]]
+    },
+    "Code in JavaScript1": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "id": "U8pIzsl5d6pxqIs-EOW8L",
+  "tags": []
+}

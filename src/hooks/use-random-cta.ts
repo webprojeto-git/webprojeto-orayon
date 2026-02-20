@@ -1,4 +1,4 @@
-export const handleRandomCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+export const handleRandomCtaClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
   e.preventDefault();
 
   const params = new URLSearchParams({
@@ -6,7 +6,19 @@ export const handleRandomCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => 
     timestamp: String(Date.now()),
   });
 
-  // Navigate directly to the webhook — n8n responds with HTTP 302 redirect.
-  // This completely bypasses CORS since it's a browser navigation, not a fetch.
-  window.location.href = `https://workflow2.webprojeto.com.br/webhook/form-orayon?${params.toString()}`;
+  try {
+    // Webhook responds with JSON { success: true, redirect: "https://app.orayon.ai/lp/parceiro" }
+    const response = await fetch(
+      `https://workflow2.webprojeto.com.br/webhook/form-orayon?${params.toString()}`
+    );
+    const data = await response.json();
+
+    if (data?.redirect) {
+      window.location.href = data.redirect;
+    } else {
+      console.error('Webhook response missing redirect URL', data);
+    }
+  } catch (err) {
+    console.error('Failed to reach webhook', err);
+  }
 };

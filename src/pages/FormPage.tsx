@@ -78,6 +78,7 @@ export default function FormPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const passwordValidation = validatePassword(form.senha);
 
@@ -133,10 +134,10 @@ export default function FormPage() {
       });
 
       const data = await response.json();
-      if (data?.success && data?.redirect) {
-        window.location.href = data.redirect;
+      if (data?.success) {
+        setSubmitted(true);
       } else {
-        setErrorMsg("Erro ao enviar cadastro. Tente novamente.");
+        setErrorMsg(data?.error ?? "Erro ao enviar cadastro. Tente novamente.");
       }
     } catch {
       setErrorMsg("Erro ao enviar cadastro. Tente novamente.");
@@ -144,6 +145,31 @@ export default function FormPage() {
       setSubmitting(false);
     }
   };
+
+  if (submitted) {
+    return (
+      <>
+        <Helmet>
+          <title>Cadastro enviado — Orayon AI</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 text-center">
+          <div
+            className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+            style={{ background: "var(--gradient-primary)" }}
+          >
+            <Check className="w-7 h-7 text-primary-foreground" />
+          </div>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Cadastro recebido!
+          </h1>
+          <p className="text-muted-foreground max-w-sm">
+            Seus dados foram enviados com sucesso. Em breve você receberá mais informações por e-mail.
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

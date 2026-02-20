@@ -1,5 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Check, X } from 'lucide-react';
+
+const PARCEIROS = ['parceirodigital', 'webprojeto', 'rodrigo'];
+const STORAGE_KEY = 'orayon_partner';
+
+function getParceiro(): string {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) return saved;
+  const random = PARCEIROS[Math.floor(Math.random() * PARCEIROS.length)];
+  localStorage.setItem(STORAGE_KEY, random);
+  return random;
+}
 
 const BRAZIL_STATES = [
   'AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG',
@@ -78,9 +89,14 @@ const selectClass = (error?: string) =>
   }`;
 
 export default function FormPage() {
+  const [parceiro, setParceiro] = useState<string>('');
   const [form, setForm] = useState<FormData>(initialData);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    setParceiro(getParceiro());
+  }, []);
 
   const passwordChecks = checkPassword(form.senha);
   const allPasswordValid = Object.values(passwordChecks).every(Boolean);
@@ -114,6 +130,7 @@ export default function FormPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           origem: 'ai.webprojeto.com.br',
+          parceiro,
           timestamp: new Date().toISOString(),
           dados: {
             plano: form.plano,
@@ -132,7 +149,11 @@ export default function FormPage() {
           },
         }),
       });
-      setStatus(res.ok ? 'success' : 'error');
+      if (res.ok) {
+        window.location.href = `https://app.orayon.ai/lp/${parceiro}`;
+      } else {
+        setStatus('error');
+      }
     } catch {
       setStatus('error');
     }
@@ -163,7 +184,7 @@ export default function FormPage() {
               color: 'hsl(var(--accent))',
             }}
           >
-            Você foi indicado por: <strong>rodrigo</strong>
+            Você foi indicado por: <strong>{parceiro}</strong>
           </div>
         </div>
 
@@ -421,20 +442,6 @@ export default function FormPage() {
                 </span>
               </label>
               <ErrorMsg msg={errors.termos} />
-
-              {status === 'success' && (
-                <div
-                  className="flex items-center gap-3 px-5 py-4 rounded-xl border text-sm font-medium"
-                  style={{
-                    background: 'hsl(var(--accent) / 0.1)',
-                    borderColor: 'hsl(var(--accent) / 0.4)',
-                    color: 'hsl(var(--accent))',
-                  }}
-                >
-                  <Check className="w-5 h-5 flex-shrink-0" />
-                  Cadastro enviado com sucesso.
-                </div>
-              )}
 
               {status === 'error' && (
                 <div

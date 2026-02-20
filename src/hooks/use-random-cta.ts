@@ -8,5 +8,5 @@ export const handleRandomCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => 
 
   // Navigate directly to the webhook — n8n responds with HTTP 302 redirect.
   // This completely bypasses CORS since it's a browser navigation, not a fetch.
-  window.location.href = `https://workflow2.webprojeto.com.br/webhook/redirect-orayon?${params.toString()}`;
+  window.location.href = `https://workflow2.webprojeto.com.br/webhook/form-orayon?${params.toString()}`;
 };

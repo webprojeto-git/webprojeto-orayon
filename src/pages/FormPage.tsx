@@ -153,19 +153,10 @@ export default function FormPage() {
           <title>Cadastro enviado — Orayon AI</title>
           <meta name="robots" content="noindex, nofollow" />
         </Helmet>
-        <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 text-center">
-          <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
-            style={{ background: "var(--gradient-primary)" }}
-          >
-            <Check className="w-7 h-7 text-primary-foreground" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+        <div className="min-h-screen bg-background flex items-center justify-center px-4 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">
             Cadastro recebido!
           </h1>
-          <p className="text-muted-foreground max-w-sm">
-            Seus dados foram enviados com sucesso. Em breve você receberá mais informações por e-mail.
-          </p>
         </div>
       </>
     );

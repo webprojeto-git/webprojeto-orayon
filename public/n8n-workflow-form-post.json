@@ -1,0 +1,76 @@
+{
+  "name": "form-orayon POST",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "form-orayon",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-200, 0],
+      "id": "webhook-post-node",
+      "name": "Webhook POST"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Dados recebidos do formulário ──────────────────────────────\n// O n8n coloca o body do POST em $json.body\nconst body = $json.body ?? $json;\n\nconst {\n  origem = 'desconhecido',\n  timestamp,\n  dados = {}\n} = body;\n\nconst {\n  plano,\n  nomeCompleto,\n  genero,\n  nomeSocial,\n  usuario,\n  email,\n  pais,\n  estado,\n  cidade,\n  celular,\n  documento,\n  dataNascimento,\n  senha\n} = dados;\n\n// ── Validação mínima ────────────────────────────────────────────\nif (!email || !usuario || !senha || !nomeCompleto) {\n  return [{\n    json: {\n      success: false,\n      error: 'Campos obrigatórios ausentes: nomeCompleto, usuario, email, senha'\n    }\n  }];\n}\n\n// ── Encaminhar para a API de registro do Orayon ────────────────\n// Ajuste a URL e o payload conforme a documentação da API Orayon\nconst apiUrl = 'https://app.orayon.ai/api/register'; // ← ajuste se necessário\n\nlet apiResponse;\ntry {\n  const res = await fetch(apiUrl, {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({\n      name: nomeCompleto,\n      social_name: nomeSocial || null,\n      gender: genero || null,\n      username: usuario,\n      email,\n      password: senha,\n      country: pais || null,\n      state: estado || null,\n      city: cidade || null,\n      phone: celular || null,\n      document: documento || null,\n      birthdate: dataNascimento || null,\n      plan: plano || 'Ainda não decidi',\n      source: origem,\n      registered_at: timestamp || new Date().toISOString()\n    })\n  });\n\n  apiResponse = await res.json();\n\n  if (!res.ok) {\n    return [{\n      json: {\n        success: false,\n        error: apiResponse?.message ?? 'Erro na API do Orayon',\n        details: apiResponse\n      }\n    }];\n  }\n} catch (err) {\n  return [{\n    json: {\n      success: false,\n      error: 'Falha ao conectar com a API do Orayon',\n      details: String(err)\n    }\n  }];\n}\n\n// ── Montar URL de redirecionamento pós-cadastro ────────────────\n// Ajuste para a rota correta do app após o login\nconst redirectUrl = apiResponse?.redirect ?? `https://app.orayon.ai/dashboard`;\n\nreturn [{\n  json: {\n    success: true,\n    usuario,\n    email,\n    redirect: redirectUrl,\n    api: apiResponse\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [60, 0],
+      "id": "code-process-form",
+      "name": "Processar Cadastro"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [320, 0],
+      "id": "respond-node",
+      "name": "Responder ao Webhook"
+    }
+  ],
+  "connections": {
+    "Webhook POST": {
+      "main": [[{ "node": "Processar Cadastro", "type": "main", "index": 0 }]]
+    },
+    "Processar Cadastro": {
+      "main": [[{ "node": "Responder ao Webhook", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

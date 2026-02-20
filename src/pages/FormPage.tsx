@@ -56,7 +56,7 @@ const labelClass = "block text-sm font-medium text-foreground mb-1.5";
 
 export default function FormPage() {
   const [form, setForm] = useState<FormData>({
-    plano: "",
+    plano: "Ainda não decidi",
     nomeCompleto: "",
     genero: "",
     nomeSocial: "",
@@ -88,7 +88,6 @@ export default function FormPage() {
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
-    if (!form.plano) newErrors.plano = "Selecione um plano.";
     if (!form.nomeCompleto.trim()) newErrors.nomeCompleto = "Nome completo é obrigatório.";
     if (!form.usuario.trim()) newErrors.usuario = "Usuário é obrigatório.";
     if (!form.email.trim()) newErrors.email = "E-mail é obrigatório.";
@@ -146,13 +145,6 @@ export default function FormPage() {
     }
   };
 
-  const planos = [
-    { value: "explorer", label: "Explorer" },
-    { value: "builder", label: "Builder" },
-    { value: "legacy", label: "Legacy" },
-    { value: "indeciso", label: "Ainda não decidi" },
-  ];
-
   return (
     <>
       <Helmet>
@@ -180,7 +172,7 @@ export default function FormPage() {
             <p className="text-muted-foreground text-sm mb-8">Preencha os campos abaixo para criar sua conta.</p>
 
             <form onSubmit={handleSubmit} noValidate className="space-y-8">
-              {/* ── SEÇÃO 1: PLANO ── */}
+              {/* ── SEÇÃO 1: DADOS PESSOAIS ── */}
               <section>
                 <h2 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
                   <span
@@ -188,58 +180,6 @@ export default function FormPage() {
                     style={{ background: "var(--gradient-primary)" }}
                   >
                     1
-                  </span>
-                  Plano
-                </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {planos.map((p) => (
-                    <label
-                      key={p.value}
-                      className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                        form.plano === p.value
-                          ? "border-primary bg-primary/10"
-                          : "border-border bg-secondary hover:border-primary/50"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="plano"
-                        value={p.value}
-                        checked={form.plano === p.value}
-                        onChange={(e) => set("plano", e.target.value)}
-                        className="sr-only"
-                      />
-                      <span
-                        className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all ${
-                          form.plano === p.value ? "border-primary" : "border-muted-foreground"
-                        }`}
-                      >
-                        {form.plano === p.value && (
-                          <span className="w-2 h-2 rounded-full bg-primary block" />
-                        )}
-                      </span>
-                      <span className="text-sm font-medium text-foreground">{p.label}</span>
-                    </label>
-                  ))}
-                </div>
-                {errors.plano && (
-                  <p className="text-destructive text-xs mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.plano}
-                  </p>
-                )}
-              </section>
-
-              <div className="border-t border-border" />
-
-              {/* ── SEÇÃO 2: DADOS PESSOAIS ── */}
-              <section>
-                <h2 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <span
-                    className="w-6 h-6 rounded-full text-xs flex items-center justify-center font-bold text-primary-foreground"
-                    style={{ background: "var(--gradient-primary)" }}
-                  >
-                    2
                   </span>
                   Dados Pessoais
                 </h2>
@@ -335,14 +275,14 @@ export default function FormPage() {
 
               <div className="border-t border-border" />
 
-              {/* ── SEÇÃO 3: LOCALIZAÇÃO ── */}
+              {/* ── SEÇÃO 2: LOCALIZAÇÃO ── */}
               <section>
                 <h2 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
                   <span
                     className="w-6 h-6 rounded-full text-xs flex items-center justify-center font-bold text-primary-foreground"
                     style={{ background: "var(--gradient-primary)" }}
                   >
-                    3
+                    2
                   </span>
                   Localização
                 </h2>
@@ -419,14 +359,14 @@ export default function FormPage() {
 
               <div className="border-t border-border" />
 
-              {/* ── SEÇÃO 4: SEGURANÇA ── */}
+              {/* ── SEÇÃO 3: SEGURANÇA ── */}
               <section>
                 <h2 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
                   <span
                     className="w-6 h-6 rounded-full text-xs flex items-center justify-center font-bold text-primary-foreground"
                     style={{ background: "var(--gradient-primary)" }}
                   >
-                    4
+                    3
                   </span>
                   Segurança
                 </h2>
